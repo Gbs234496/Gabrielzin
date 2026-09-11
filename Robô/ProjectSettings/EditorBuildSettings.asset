@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/_Boot.unity
     guid: d6e890b61aa2ae8479a942df62419c19
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Splash.unity
     guid: de7ae8cd360ae484fa50a1f704a0ef30
   - enabled: 1
@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 6888813f2bd9e4521b9b1343abf0c60f
   - enabled: 1
-    path: Assets/Scenes/Cena_UI_Moedas.unity
+    path: Assets/Scenes/GUI.unity
     guid: cee10062225bf944ebcd2cc61a4e8476
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
