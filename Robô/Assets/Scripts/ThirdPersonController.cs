@@ -140,18 +140,16 @@ namespace StarterAssets
         }
 #endif
 
-        private void OnTriggerEnter(Collider other)
-        {
-            bool isCoin = other.CompareTag("Coin") || other.gameObject.name.Contains("Coin");
-            if (isCoin)
-            {
-                MoveSpeed += SpeedBoostPerCoin;
-                SprintSpeed += SpeedBoostPerCoin;
-                PlayerOM.AddCoin(PlayerID);
-                Destroy(other.gameObject);
-            }
-        }
-
+       private void OnTriggerEnter(Collider other)
+{
+    bool isCoin = other.CompareTag("Coin") || other.gameObject.name.Contains("Coin");
+    if (isCoin)
+    {
+        MoveSpeed += SpeedBoostPerCoin;
+        SprintSpeed += SpeedBoostPerCoin;
+        Destroy(other.gameObject);
+    }
+}
         private void InitializeAnimationHashes()
         {
             _hashSpeed = Animator.StringToHash("Speed");
@@ -169,52 +167,54 @@ namespace StarterAssets
             if (_animatorExists) _animComp.SetBool(_hashGrounded, Grounded);
         }
 
-        private void ProcessMovement()
-        {
-            float targetSpeed = _inputData.sprint ? SprintSpeed : MoveSpeed;
-            if (_inputData.move == Vector2.zero) targetSpeed = 0.0f;
+       private void ProcessMovement()
+{
+    float targetSpeed = _inputData.sprint ? SprintSpeed : MoveSpeed;
+    if (_inputData.move == Vector2.zero) targetSpeed = 0.0f;
 
-            Vector3 currentHorizontalVel = new Vector3(_charController.velocity.x, 0.0f, _charController.velocity.z);
-            float currentHorizontalSpeed = currentHorizontalVel.magnitude;
-            float speedOffset = 0.1f;
-            float inputMagnitude = _inputData.analogMovement ? _inputData.move.magnitude : 1f;
+    Vector3 currentHorizontalVel = new Vector3(_charController.velocity.x, 0.0f, _charController.velocity.z);
+    float currentHorizontalSpeed = currentHorizontalVel.magnitude;
+    float speedOffset = 0.1f;
+    float inputMagnitude = _inputData.analogMovement ? _inputData.move.magnitude : 1f;
 
-            if (Mathf.Abs(currentHorizontalSpeed - targetSpeed) > speedOffset)
-            {
-                _currentSpeed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.deltaTime * SpeedChangeRate);
-                _currentSpeed = Mathf.Round(_currentSpeed * 1000f) * 0.001f;
-            }
-            else
-            {
-                _currentSpeed = targetSpeed;
-            }
+    if (Mathf.Abs(currentHorizontalSpeed - targetSpeed) > speedOffset)
+    {
+        _currentSpeed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.deltaTime * SpeedChangeRate);
+        _currentSpeed = Mathf.Round(_currentSpeed * 1000f) * 0.001f;
+    }
+    else
+    {
+        _currentSpeed = targetSpeed;
+    }
 
-            _animBlendValue = Mathf.Lerp(_animBlendValue, targetSpeed, Time.deltaTime * SpeedChangeRate);
-            if (_animBlendValue < 0.01f) _animBlendValue = 0f;
+    _animBlendValue = Mathf.Lerp(_animBlendValue, targetSpeed, Time.deltaTime * SpeedChangeRate);
+    if (_animBlendValue < 0.01f) _animBlendValue = 0f;
 
-            Vector3 inputDirection = new Vector3(_inputData.move.x, 0.0f, _inputData.move.y).normalized;
+    Vector3 inputDirection = new Vector3(_inputData.move.x, 0.0f, _inputData.move.y).normalized;
 
-            if (_inputData.move != Vector2.zero)
-            {
-                float cameraYaw = playerCameraTransform != null ? playerCameraTransform.eulerAngles.y : 0f;
-                _desiredRotationY = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + cameraYaw;
+    if (_inputData.move != Vector2.zero)
+    {
+        // Pega apenas a rotação Y da câmera em World Space
+        float cameraYaw = playerCameraTransform != null ? playerCameraTransform.rotation.eulerAngles.y : 0f;
+        
+        _desiredRotationY = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + cameraYaw;
 
-                float smoothedAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, _desiredRotationY, ref _rotVelocityRef, RotationSmoothTime);
-                transform.rotation = Quaternion.Euler(0.0f, smoothedAngle, 0.0f);
-            }
+        // Suaviza a rotação do personagem em relação ao target desejado
+        float smoothedAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, _desiredRotationY, ref _rotVelocityRef, RotationSmoothTime);
+        transform.rotation = Quaternion.Euler(0.0f, smoothedAngle, 0.0f);
+    }
 
-            Vector3 moveDirection = Quaternion.Euler(0.0f, _desiredRotationY, 0.0f) * Vector3.forward;
-            Vector3 velocityVector = moveDirection.normalized * (_currentSpeed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity * Time.deltaTime, 0.0f);
-            
-            _charController.Move(velocityVector);
+    Vector3 moveDirection = Quaternion.Euler(0.0f, _desiredRotationY, 0.0f) * Vector3.forward;
+    Vector3 velocityVector = moveDirection.normalized * (_currentSpeed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity * Time.deltaTime, 0.0f);
+    
+    _charController.Move(velocityVector);
 
-            if (_animatorExists)
-            {
-                _animComp.SetFloat(_hashSpeed, _animBlendValue);
-                _animComp.SetFloat(_hashMotionSpeed, inputMagnitude);
-            }
-        }
-
+    if (_animatorExists)
+    {
+        _animComp.SetFloat(_hashSpeed, _animBlendValue);
+        _animComp.SetFloat(_hashMotionSpeed, inputMagnitude);
+    }
+}
         private void ApplyJumpAndGravity()
         {
             if (Grounded)

@@ -2,48 +2,68 @@ using UnityEngine;
 
 public class Pickup : MonoBehaviour
 {
+    #region Inspector Fields
+
     [Header("Effects")]
-    public GameObject particleEffectPrefab; // Assign particle system prefab in Inspector
+    public GameObject particleEffectPrefab;
 
     [Header("Motion Settings")]
-    public float rotationSpeed = 100f; // Rotation speed in degrees per second
-    public float bobbingAmount = 0.1f; // Amplitude of bobbing motion
-    public float bobbingSpeed = 1f; // Speed of bobbing motion
+    public float rotationSpeed = 100f;
+    public float bobbingAmount = 0.1f;
+    public float bobbingSpeed = 1f;
+
+    #endregion
+
+    #region Private Fields
 
     private Vector3 startPosition;
     private float timer;
 
-    void Start()
+    #endregion
+
+    #region Unity LifeCycle
+
+    private void Start()
     {
-        // Remember the original position of the GameObject
         startPosition = transform.position;
     }
 
-    void Update()
+    private void Update()
     {
-        // Rotate the object around its up axis
+        // Rotação da estrela
         transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime, Space.World);
 
-        // Create a bobbing motion up and down
+        // Movimento de flutuação (bobbing)
         timer += Time.deltaTime * bobbingSpeed;
         float newY = startPosition.y + Mathf.Sin(timer) * bobbingAmount;
         transform.position = new Vector3(transform.position.x, newY, transform.position.z);
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        // Check if the colliding object has the "Player" tag
         if (other.CompareTag("Player"))
         {
-            // Instantiate the particle effect
+            // Tenta obter o script do jogador para saber quem pegou a estrela
+            var player = other.GetComponent<StarterAssets.ThirdPersonController>();
+            if (player == null)
+            {
+                player = other.GetComponentInParent<StarterAssets.ThirdPersonController>();
+            }
+
+            if (player != null)
+            {
+                // Pontua para o jogador correto (certifique-se de que o PlayerOM possui o método correspondente)
+                PlayerOM.AddStar(player.PlayerID); 
+            }
+
             if (particleEffectPrefab != null)
             {
                 Instantiate(particleEffectPrefab, transform.position, Quaternion.identity);
             }
 
-            // Destroy the star
             Destroy(gameObject);
-
         }
     }
+
+    #endregion
 }

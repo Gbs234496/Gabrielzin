@@ -1,14 +1,16 @@
 using UnityEngine;
-using TMPro; // Se estiver usando UI tradicional, troque por usando UnityEngine.UI;
+using TMPro;
 
 public class ControladorUI : MonoBehaviour
 {
-    [Header("UI - Placar de Moedas")]
-    [SerializeField] private TextMeshProUGUI textoMoedasP1;
-    [SerializeField] private string prefixoP1 = "P1 Moedas: ";
+    #region Inspector Fields
 
-    [SerializeField] private TextMeshProUGUI textoMoedasP2;
-    [SerializeField] private string prefixoP2 = "P2 Moedas: ";
+    [Header("UI - Placar de Estrelas")]
+    [SerializeField] private TextMeshProUGUI textoEstrelasP1;
+    [SerializeField] private string prefixoP1 = "P1 Estrelas: ";
+
+    [SerializeField] private TextMeshProUGUI textoEstrelasP2;
+    [SerializeField] private string prefixoP2 = "P2 Estrelas: ";
 
     [Header("UI - Painel de Vitória")]
     [SerializeField] private GameObject painelVencedor;
@@ -17,20 +19,28 @@ public class ControladorUI : MonoBehaviour
     [SerializeField] private string mensagemVitoriaP2 = "JOGADOR 2 VENCEU!";
 
     [Header("Regras do Jogo")]
-    [SerializeField] private int moedasParaVencer = 5;
+    [SerializeField] private int estrelasParaVencer = 5;
+
+    #endregion
+
+    #region Private Fields
 
     private bool _jogoFinalizado;
 
+    #endregion
+
+    #region Unity LifeCycle & Subscriptions
+
     private void OnEnable()
     {
-        PlayerOM.OnCoinCountChanged += OnMoedasAlteradas;
+        PlayerOM.OnStarCountChanged += OnEstrelasAlteradas;
         PlayerOM.OnPlayerWon += OnVitoriaGatilho;
-        Debug.Log("[ControladorUI] Inscrito com sucesso nos eventos do PlayerOM.");
+        Debug.Log("[ControladorUI] Inscrito com sucesso nos eventos de Estrelas do PlayerOM.");
     }
 
     private void OnDisable()
     {
-        PlayerOM.OnCoinCountChanged -= OnMoedasAlteradas;
+        PlayerOM.OnStarCountChanged -= OnEstrelasAlteradas;
         PlayerOM.OnPlayerWon -= OnVitoriaGatilho;
     }
 
@@ -45,19 +55,23 @@ public class ControladorUI : MonoBehaviour
         }
 
         PlayerOM.ResetScores();
-        AtualizarTextoUI(1, PlayerOM.GetCoins(1));
-        AtualizarTextoUI(2, PlayerOM.GetCoins(2));
+        AtualizarTextoUI(1, PlayerOM.GetStars(1));
+        AtualizarTextoUI(2, PlayerOM.GetStars(2));
     }
 
-    private void OnMoedasAlteradas(int playerID, int novaQuantidade)
+    #endregion
+
+    #region UI & Gameplay Logic
+
+    private void OnEstrelasAlteradas(int playerID, int novaQuantidade)
     {
-        Debug.Log($"[ControladorUI] Evento recebido! Player {playerID} pegou moeda. Total: {novaQuantidade}");
+        Debug.Log($"[ControladorUI] Evento recebido! Player {playerID} pegou estrela. Total: {novaQuantidade}");
 
         if (_jogoFinalizado) return;
 
         AtualizarTextoUI(playerID, novaQuantidade);
 
-        if (novaQuantidade >= moedasParaVencer)
+        if (novaQuantidade >= estrelasParaVencer)
         {
             _jogoFinalizado = true;
             PlayerOM.TriggerWin(playerID);
@@ -81,18 +95,17 @@ public class ControladorUI : MonoBehaviour
         Time.timeScale = 0f;
     }
 
-   private void AtualizarTextoUI(int playerID, int quantidade)
-{
-    // Aceita tanto PlayerID 1 quanto 0 para o primeiro jogador
-    if ((playerID == 1 || playerID == 0) && textoMoedasP1 != null)
+    private void AtualizarTextoUI(int playerID, int quantidade)
     {
-        textoMoedasP1.text = $"{prefixoP1}{quantidade}";
+        if ((playerID == 1 || playerID == 0) && textoEstrelasP1 != null)
+        {
+            textoEstrelasP1.text = $"{prefixoP1}{quantidade}";
+        }
+        else if (playerID == 2 && textoEstrelasP2 != null)
+        {
+            textoEstrelasP2.text = $"{prefixoP2}{quantidade}";
+        }
     }
-    else if (playerID == 2 && textoMoedasP2 != null)
-    {
-        textoMoedasP2.text = $"{prefixoP2}{quantidade}";
-    }
-}
 
     public void ReiniciarPartida()
     {
@@ -102,4 +115,6 @@ public class ControladorUI : MonoBehaviour
             UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex
         );
     }
+
+    #endregion
 }

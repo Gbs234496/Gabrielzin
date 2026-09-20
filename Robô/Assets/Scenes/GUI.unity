@@ -450,15 +450,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de1c4549b86746842ae0075cf94c156c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ControladorUI
-  textoMoedasP1: {fileID: 737640847}
-  prefixoP1: 'P1 Moedas: '
-  textoMoedasP2: {fileID: 1749338062}
-  prefixoP2: 'P2 Moedas: '
+  textoEstrelasP1: {fileID: 737640847}
+  prefixoP1: 'P1 Estrelas: '
+  textoEstrelasP2: {fileID: 1749338062}
+  prefixoP2: 'P2 Estrelas: '
   painelVencedor: {fileID: 1506282435}
   textoVencedor: {fileID: 1709273796}
   mensagemVitoriaP1: JOGADOR 1 VENCEU!
   mensagemVitoriaP2: JOGADOR 2 VENCEU!
-  moedasParaVencer: 5
+  estrelasParaVencer: 6
 --- !u!1 &1709273795
 GameObject:
   m_ObjectHideFlags: 0
