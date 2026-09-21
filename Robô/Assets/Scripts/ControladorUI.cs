@@ -7,10 +7,17 @@ public class ControladorUI : MonoBehaviour
 
     [Header("UI - Placar de Estrelas")]
     [SerializeField] private TextMeshProUGUI textoEstrelasP1;
-    [SerializeField] private string prefixoP1 = "P1 Estrelas: ";
+    [SerializeField] private string prefixoEstrelasP1 = "P1 Estrelas: ";
 
     [SerializeField] private TextMeshProUGUI textoEstrelasP2;
-    [SerializeField] private string prefixoP2 = "P2 Estrelas: ";
+    [SerializeField] private string prefixoEstrelasP2 = "P2 Estrelas: ";
+
+    [Header("UI - Placar de Moedas")]
+    [SerializeField] private TextMeshProUGUI textoMoedasP1;
+    [SerializeField] private string prefixoMoedasP1 = "P1 Moedas: ";
+
+    [SerializeField] private TextMeshProUGUI textoMoedasP2;
+    [SerializeField] private string prefixoMoedasP2 = "P2 Moedas: ";
 
     [Header("UI - Painel de Vitória")]
     [SerializeField] private GameObject painelVencedor;
@@ -34,13 +41,14 @@ public class ControladorUI : MonoBehaviour
     private void OnEnable()
     {
         PlayerOM.OnStarCountChanged += OnEstrelasAlteradas;
+        PlayerOM.OnCoinCountChanged += OnMoedasAlteradas;
         PlayerOM.OnPlayerWon += OnVitoriaGatilho;
-        Debug.Log("[ControladorUI] Inscrito com sucesso nos eventos de Estrelas do PlayerOM.");
     }
 
     private void OnDisable()
     {
         PlayerOM.OnStarCountChanged -= OnEstrelasAlteradas;
+        PlayerOM.OnCoinCountChanged -= OnMoedasAlteradas;
         PlayerOM.OnPlayerWon -= OnVitoriaGatilho;
     }
 
@@ -55,27 +63,37 @@ public class ControladorUI : MonoBehaviour
         }
 
         PlayerOM.ResetScores();
-        AtualizarTextoUI(1, PlayerOM.GetStars(1));
-        AtualizarTextoUI(2, PlayerOM.GetStars(2));
+
+        // Atualiza os 4 contadores no início da partida
+        AtualizarTextoEstrelasUI(1, PlayerOM.GetStars(1));
+        AtualizarTextoEstrelasUI(2, PlayerOM.GetStars(2));
+
+        AtualizarTextoMoedasUI(1, PlayerOM.GetCoins(1));
+        AtualizarTextoMoedasUI(2, PlayerOM.GetCoins(2));
     }
 
     #endregion
 
-    #region UI & Gameplay Logic
+    #region Event Callbacks
 
     private void OnEstrelasAlteradas(int playerID, int novaQuantidade)
     {
-        Debug.Log($"[ControladorUI] Evento recebido! Player {playerID} pegou estrela. Total: {novaQuantidade}");
-
         if (_jogoFinalizado) return;
 
-        AtualizarTextoUI(playerID, novaQuantidade);
+        AtualizarTextoEstrelasUI(playerID, novaQuantidade);
 
         if (novaQuantidade >= estrelasParaVencer)
         {
             _jogoFinalizado = true;
             PlayerOM.TriggerWin(playerID);
         }
+    }
+
+    private void OnMoedasAlteradas(int playerID, int novaQuantidade)
+    {
+        if (_jogoFinalizado) return;
+
+        AtualizarTextoMoedasUI(playerID, novaQuantidade);
     }
 
     private void OnVitoriaGatilho(int playerID)
@@ -95,15 +113,31 @@ public class ControladorUI : MonoBehaviour
         Time.timeScale = 0f;
     }
 
-    private void AtualizarTextoUI(int playerID, int quantidade)
+    #endregion
+
+    #region UI Methods
+
+    private void AtualizarTextoEstrelasUI(int playerID, int quantidade)
     {
-        if ((playerID == 1 || playerID == 0) && textoEstrelasP1 != null)
+        if (playerID == 1 && textoEstrelasP1 != null)
         {
-            textoEstrelasP1.text = $"{prefixoP1}{quantidade}";
+            textoEstrelasP1.text = $"{prefixoEstrelasP1}{quantidade}";
         }
         else if (playerID == 2 && textoEstrelasP2 != null)
         {
-            textoEstrelasP2.text = $"{prefixoP2}{quantidade}";
+            textoEstrelasP2.text = $"{prefixoEstrelasP2}{quantidade}";
+        }
+    }
+
+    private void AtualizarTextoMoedasUI(int playerID, int quantidade)
+    {
+        if (playerID == 1 && textoMoedasP1 != null)
+        {
+            textoMoedasP1.text = $"{prefixoMoedasP1}{quantidade}";
+        }
+        else if (playerID == 2 && textoMoedasP2 != null)
+        {
+            textoMoedasP2.text = $"{prefixoMoedasP2}{quantidade}";
         }
     }
 

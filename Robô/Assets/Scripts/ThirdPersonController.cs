@@ -140,13 +140,19 @@ namespace StarterAssets
         }
 #endif
 
-       private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
 {
     bool isCoin = other.CompareTag("Coin") || other.gameObject.name.Contains("Coin");
     if (isCoin)
     {
+        // 1. Aplica o boost de velocidade
         MoveSpeed += SpeedBoostPerCoin;
         SprintSpeed += SpeedBoostPerCoin;
+
+        // 2. Adiciona a moeda ao contador individual
+        PlayerOM.AddCoin(PlayerID);
+
+        // 3. Destrói o objeto no mapa
         Destroy(other.gameObject);
     }
 }
