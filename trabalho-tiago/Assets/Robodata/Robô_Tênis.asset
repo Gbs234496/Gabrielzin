@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d69b2da2e2b3cd459398443e13634b7, type: 3}
+  m_Name: "Rob\xF4_T\xEAnis"
+  m_EditorClassIdentifier: Assembly-CSharp::RoboData
+  NomeRobo: "T\xEAnis"
+  PrefabRobo: {fileID: 0}
+  IconeBola: {fileID: 251567214, guid: 1ca5f74ae929e21488bcafcf9f94f0fa, type: 3}
+  TexturaBola: {fileID: 2800000, guid: 1ca5f74ae929e21488bcafcf9f94f0fa, type: 3}
+  EscalaTamanho: 0.8
+  MaterialBase: {fileID: 2100000, guid: eaf326e8aeee4f941910a44232057741, type: 2}
+  VelocidadeInicial: 7
+  ForcaEmpurraoBase: 5
+  RaioEmpurrao: 3
+  TempoCooldownEmpurrao: 1
