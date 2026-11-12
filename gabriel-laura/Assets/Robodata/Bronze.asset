@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d69b2da2e2b3cd459398443e13634b7, type: 3}
-  m_Name: "Rob\xF4_T\xEAnis"
+  m_Name: Bronze
   m_EditorClassIdentifier: Assembly-CSharp::RoboData
-  NomeRobo: "T\xEAnis"
+  NomeRobo: Bronze
   PrefabRobo: {fileID: 0}
   IconeBola: {fileID: 251567214, guid: 1ca5f74ae929e21488bcafcf9f94f0fa, type: 3}
   TexturaBola: {fileID: 2800000, guid: 1ca5f74ae929e21488bcafcf9f94f0fa, type: 3}
   EscalaTamanho: 0.8
-  MaterialBase: {fileID: 2100000, guid: eaf326e8aeee4f941910a44232057741, type: 2}
+  MaterialBase: {fileID: 2100000, guid: 414357d43f73adf409a474fab01fc5ce, type: 2}
+  CorDuplicado: {r: 1, g: 0.45, b: 0.45, a: 1}
   VelocidadeInicial: 7
   ForcaEmpurraoBase: 5
   RaioEmpurrao: 3

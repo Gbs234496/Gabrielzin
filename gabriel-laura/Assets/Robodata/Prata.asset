@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d69b2da2e2b3cd459398443e13634b7, type: 3}
-  m_Name: Robo_Volei
+  m_Name: Prata
   m_EditorClassIdentifier: Assembly-CSharp::RoboData
-  NomeRobo: Volei
+  NomeRobo: Prata
   PrefabRobo: {fileID: 0}
   IconeBola: {fileID: 1708636837, guid: 2eca41e3dc477bc47998f1f8b9a78464, type: 3}
   TexturaBola: {fileID: 2800000, guid: 2eca41e3dc477bc47998f1f8b9a78464, type: 3}
   EscalaTamanho: 1.15
-  MaterialBase: {fileID: 2100000, guid: be0f656ef52ff794bb2ca09974fd17fc, type: 2}
+  MaterialBase: {fileID: 2100000, guid: 78e06982e80fa7c4681285b2565050f1, type: 2}
+  CorDuplicado: {r: 1, g: 0.45, b: 0.45, a: 1}
   VelocidadeInicial: 4
   ForcaEmpurraoBase: 10
   RaioEmpurrao: 5

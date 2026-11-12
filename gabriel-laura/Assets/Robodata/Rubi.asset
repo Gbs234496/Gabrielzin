@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d69b2da2e2b3cd459398443e13634b7, type: 3}
-  m_Name: Robo_Basquete
+  m_Name: Rubi
   m_EditorClassIdentifier: Assembly-CSharp::RoboData
-  NomeRobo: Basquete
+  NomeRobo: Rubi
   PrefabRobo: {fileID: 0}
   IconeBola: {fileID: -1873369261, guid: 3296fa059ab1c934ebf0de02d49e8138, type: 3}
   TexturaBola: {fileID: 2800000, guid: 3296fa059ab1c934ebf0de02d49e8138, type: 3}
   EscalaTamanho: 1.25
-  MaterialBase: {fileID: 2100000, guid: c369894809371734eb2f355c83c72ede, type: 2}
+  MaterialBase: {fileID: 2100000, guid: 0e03ebf6a622a9340a3a8d3cd853a99c, type: 2}
   CorDuplicado: {r: 0.46958405, g: 0.9150943, b: 0.44459772, a: 1}
   VelocidadeInicial: 2
   ForcaEmpurraoBase: 14
