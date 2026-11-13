@@ -1,45 +1,67 @@
 using UnityEngine;
-using TMPro;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class VictoryUIController : MonoBehaviour
 {
+    [Header("Referências de UI")]
     public TextMeshProUGUI textoVencedor;
     public TextMeshProUGUI textoRoboVencedor;
 
-    private void Awake()
+    [Header("Personalização dos Textos")]
+    [Tooltip("Use {0} onde deve aparecer o número do jogador vencedor.")]
+    public string formatoVencedor = "JOGADOR {0} VENCEU!";
+
+    [Tooltip("Use {0} onde deve aparecer o nome da joia escolhida.")]
+    public string formatoJoia = "Joia escolhida: {0}";
+
+    [Header("Configuração de Cena")]
+    public string nomeCenaSelecao = "SelecaoRobos";
+
+    private void OnEnable()
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        LiberarCursor();
     }
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
-        int vencedorID = PlayerOM.UltimoVencedorID;
-        string nomeRobo = PlayerOM.UltimoRoboVencedorNome;
-
-        if (textoVencedor != null)
-            textoVencedor.text = $"Bola {vencedorID} levará o cinturão";
-
-        if (textoRoboVencedor != null)
-            textoRoboVencedor.text = $"Bola escolhida: {nomeRobo}";
+        LiberarCursor();
+        ExibirDadosDaVitoria();
     }
 
-    private void Update()
+    private void OnApplicationFocus(bool hasFocus)
     {
-        if (Cursor.lockState != CursorLockMode.None || !Cursor.visible)
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
+        if (hasFocus) LiberarCursor();
+    }
+
+    private void ExibirDadosDaVitoria()
+    {
+        int vencedorID = PlayerOM.UltimoVencedorID;
+        string nomeJoia = ObterNomeDaJoia(vencedorID);
+
+        if (textoVencedor != null)
+            textoVencedor.text = string.Format(formatoVencedor, vencedorID);
+
+        if (textoRoboVencedor != null)
+            textoRoboVencedor.text = string.Format(formatoJoia, nomeJoia);
+    }
+
+    private string ObterNomeDaJoia(int vencedorID)
+    {
+        if (!string.IsNullOrEmpty(PlayerOM.UltimoRoboVencedorNome))
+            return PlayerOM.UltimoRoboVencedorNome;
+
+        if (vencedorID == 1 && PlayerOM.RoboP1 != null)
+            return PlayerOM.RoboP1.NomeRobo;
+
+        if (vencedorID == 2 && PlayerOM.RoboP2 != null)
+            return PlayerOM.RoboP2.NomeRobo;
+
+        return "Desconhecida";
     }
 
     public void VoltarParaSelecao()
     {
-
         if (GameManager.Instance != null)
         {
             GameManager.Instance.ReiniciarPartidaCompleta();
@@ -47,7 +69,13 @@ public class VictoryUIController : MonoBehaviour
         else
         {
             PlayerOM.ResetScores();
-            SceneManager.LoadScene("SelecaoRobos");
+            SceneManager.LoadScene(nomeCenaSelecao);
         }
+    }
+
+    private void LiberarCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }

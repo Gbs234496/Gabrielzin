@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0eed790eb11d9c44a80890320e13241a
+guid: 30b54015d1233f54d994ea8b1391c7db
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 3798571_0
+      name: trocar_0
       rect:
         serializedVersion: 2
-        x: 3
+        x: 0
         y: 0
-        width: 509
-        height: 511
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -138,8 +138,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e0eea7f2810a47449a67aea24fbc14a4
-      internalID: 1119972615
+      spriteID: 4a3eb008e01321f44a4f9722caf41463
+      internalID: -1818444526
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5cec0503aba13774485e87a5a4f4e127
+    spriteID: b833cc2a1e6fa9541907bb26667c2309
     internalID: 0
     vertices: []
     indices: 
@@ -158,7 +158,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      3798571_0: 1119972615
+      trocar_0: -1818444526
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
