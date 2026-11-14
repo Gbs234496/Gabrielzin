@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoboData
   NomeRobo: Rubi
   PrefabRobo: {fileID: 0}
-  IconeBola: {fileID: -1873369261, guid: 3296fa059ab1c934ebf0de02d49e8138, type: 3}
-  TexturaBola: {fileID: 2800000, guid: 3296fa059ab1c934ebf0de02d49e8138, type: 3}
+  IconeBola: {fileID: 0}
+  TexturaBola: {fileID: 0}
   EscalaTamanho: 1.25
   MaterialBase: {fileID: 2100000, guid: 0e03ebf6a622a9340a3a8d3cd853a99c, type: 2}
   CorDuplicado: {r: 0.46958405, g: 0.9150943, b: 0.44459772, a: 1}
-  VelocidadeInicial: 2
+  VelocidadeInicial: 7
   ForcaEmpurraoBase: 14
-  RaioEmpurrao: 4
-  TempoCooldownEmpurrao: 6
+  RaioEmpurrao: 2
+  TempoCooldownEmpurrao: 2

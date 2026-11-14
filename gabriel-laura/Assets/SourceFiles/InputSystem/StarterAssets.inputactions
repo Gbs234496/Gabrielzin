@@ -359,7 +359,7 @@
                 {
                     "name": "",
                     "id": "597cc332-5953-4018-a10a-b01162b8c1ce",
-                    "path": "<Keyboard>/p",
+                    "path": "<Keyboard>/numpadEnter",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Player2-Scheme",
@@ -370,7 +370,7 @@
                 {
                     "name": "",
                     "id": "30f5d15e-7460-4120-af48-21609b3591ea",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Player1-Scheme",

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2947525137710428196}
   - component: {fileID: 3800262084549122998}
   m_Layer: 0
-  m_Name: Moeda1
+  m_Name: extra
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5215664343618211912}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.69522977, y: 0.12905647, z: 0.12905647, w: 0.69522977}
+  m_LocalRotation: {x: -0.69523025, y: 0.1290541, z: 0.1290541, w: 0.69523025}
   m_LocalPosition: {x: 281.64648, y: 1.49, z: -80.94039}
   m_LocalScale: {x: 0.97, y: 0.1, z: 0.64}
   m_ConstrainProportionsScale: 0
@@ -68,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c7f23839a9bf7f8459d6f79debbdfb10, type: 2}
+  - {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

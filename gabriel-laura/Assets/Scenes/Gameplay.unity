@@ -763,7 +763,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5215664343618211912, guid: 44a88c45d6330404aa095810e4326376, type: 3}
       propertyPath: m_Name
-      value: Moeda1 (1)
+      value: extra
       objectReference: {fileID: 0}
     - target: {fileID: 7252739737947232332, guid: 44a88c45d6330404aa095810e4326376, type: 3}
       propertyPath: m_LocalPosition.x
@@ -808,29 +808,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5215664343618211912, guid: 44a88c45d6330404aa095810e4326376, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 487593298}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44a88c45d6330404aa095810e4326376, type: 3}
---- !u!1 &487593297 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5215664343618211912, guid: 44a88c45d6330404aa095810e4326376, type: 3}
-  m_PrefabInstance: {fileID: 487593296}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &487593298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 487593297}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8c0dcd47f125b942916b83cb5506b10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Moeda
-  velocidadeRotacao: 100
 --- !u!1 &517457938
 GameObject:
   m_ObjectHideFlags: 0
@@ -1688,12 +1667,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c45d7e3fe5efb4fa4751e55611bda2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinSpawner
-  prefabMoeda: {fileID: 5215664343618211912, guid: 44a88c45d6330404aa095810e4326376, type: 3}
-  transformChao: {fileID: 4242669814982857641}
-  alturaAcimaDoChao: 0.8
-  margemBorda: 4.92
-  maxMoedasNaArena: 5
-  tempoEntreSpawns: 3
+  objetoMoeda: {fileID: 5215664343618211912, guid: 44a88c45d6330404aa095810e4326376, type: 3}
+  pisoReferencia: {fileID: 4242669814982857641}
+  elevacaoVertical: 0.8
+  recuoLimite: 2.5
+  limiteMoedasAtivas: 3
+  intervaloGeracao: 3
 --- !u!4 &2132901854
 Transform:
   m_ObjectHideFlags: 0
@@ -2089,7 +2068,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5215664343618211912, guid: 44a88c45d6330404aa095810e4326376, type: 3}
       propertyPath: m_Name
-      value: Moeda1
+      value: extra
       objectReference: {fileID: 0}
     - target: {fileID: 7252739737947232332, guid: 44a88c45d6330404aa095810e4326376, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2165,7 +2144,7 @@ GameObject:
   - component: {fileID: 6685933758803220113}
   - component: {fileID: 8642888237890314048}
   m_Layer: 0
-  m_Name: Ground
+  m_Name: Chao
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

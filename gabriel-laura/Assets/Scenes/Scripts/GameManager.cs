@@ -17,7 +17,8 @@ public class GameManager : MonoBehaviour
     public BoxCollider AreaDeSpawnMoedas;
     public float IntervaloSpawnMoeda = 4.0f;
 
-    private const int VITORIAS_PARA_GANHAR = 2; // Melhor de 3 (quem fizer 2 pontos vence)
+    private const int VITORIAS_PARA_GANHAR = 2; // Melhor de 3 (quem vencer 2 rounds ganha)
+    private bool processandoQueda = false;
 
     private void Awake()
     {
@@ -29,6 +30,24 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnCenaCarregada;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnCenaCarregada;
+    }
+
+    private void OnCenaCarregada(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == GameplaySceneName)
+        {
+            processandoQueda = false;
         }
     }
 
@@ -49,6 +68,7 @@ public class GameManager : MonoBehaviour
     public void CarregarJogo()
     {
         PararRotinaMoedas();
+        processandoQueda = false;
         PlayerOM.ResetScores();
         SceneManager.LoadScene(GameplaySceneName, LoadSceneMode.Single);
         SceneManager.LoadScene(GUISceneName, LoadSceneMode.Additive);
@@ -90,7 +110,7 @@ public class GameManager : MonoBehaviour
         }
 
         Bounds bounds = AreaDeSpawnMoedas.bounds;
-        
+
         // Posição aleatória ligeiramente elevada (+0.5f) para não ficar enterrada no chão
         Vector3 pontoAleatorio = new Vector3(
             Random.Range(bounds.min.x, bounds.max.x),
@@ -101,30 +121,34 @@ public class GameManager : MonoBehaviour
         Instantiate(PrefabMoeda, pontoAleatorio, Quaternion.identity);
     }
 
-   public void RegistrarQuedaForaDaArena(int playerIDQueCaiu)
-{
-    int vencedorDoPonto = (playerIDQueCaiu == 1) ? 2 : 1;
-
-    PararRotinaMoedas();
-
-    // 1. Atribui o ponto da queda ao adversário
-    PlayerOM.AddPonto(vencedorDoPonto);
-
-    int pontosVencedor = (vencedorDoPonto == 1) ? PlayerOM.P1PontosRound : PlayerOM.P2PontosRound;
-
-    // 2. Verifica se fechou o Round (Melhor de 3 pontos -> 2 pontos ganham o round)
-    if (pontosVencedor >= 2)
+    public void RegistrarQuedaForaDaArena(int playerIDQueCaiu)
     {
-        PlayerOM.AddRoundWin(vencedorDoPonto);
-        int roundsVencedor = (vencedorDoPonto == 1) ? PlayerOM.P1RoundsVencidos : PlayerOM.P2RoundsVencidos;
+        // Evita contar duas vezes se o robô tiver mais de um Collider entrando na KillZone
+        if (processandoQueda) return;
 
-        // 3. Verifica se fechou a Partida (Melhor de 3 rounds -> 2 rounds ganham o jogo)
-        if (roundsVencedor >= 2)
+        // Garante que o ID do jogador é válido (1 ou 2)
+        if (playerIDQueCaiu != 1 && playerIDQueCaiu != 2)
         {
-            RoboData roboVencedor = (vencedorDoPonto == 1) ? PlayerOM.RoboP1 : PlayerOM.RoboP2;
+            Debug.LogWarning($"[KillZone] PlayerID inválido detectado: {playerIDQueCaiu}");
+            return;
+        }
+
+        processandoQueda = true;
+        int vencedorDoRound = (playerIDQueCaiu == 1) ? 2 : 1;
+
+        PararRotinaMoedas();
+
+        // Soma direto 1 Round Vencido para o adversário
+        PlayerOM.AddRoundWin(vencedorDoRound);
+        int roundsVencedor = (vencedorDoRound == 1) ? PlayerOM.P1RoundsVencidos : PlayerOM.P2RoundsVencidos;
+
+        // Verifica se fechou a Partida (Melhor de 3 rounds -> 2 rounds ganham o jogo)
+        if (roundsVencedor >= VITORIAS_PARA_GANHAR)
+        {
+            RoboData roboVencedor = (vencedorDoRound == 1) ? PlayerOM.RoboP1 : PlayerOM.RoboP2;
             string nomeRobo = (roboVencedor != null) ? roboVencedor.NomeRobo : "Robô";
 
-            PlayerOM.TriggerMatchWin(vencedorDoPonto, nomeRobo);
+            PlayerOM.TriggerMatchWin(vencedorDoRound, nomeRobo);
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -132,16 +156,16 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(VictorySceneName);
             return;
         }
-    }
 
-    // Se a partida não acabou, recarrega a arena para a próxima disputa
-    SceneManager.LoadScene(GameplaySceneName, LoadSceneMode.Single);
-    SceneManager.LoadScene(GUISceneName, LoadSceneMode.Additive);
-}
+        // Se a partida não acabou, recarrega a arena para o próximo round
+        SceneManager.LoadScene(GameplaySceneName, LoadSceneMode.Single);
+        SceneManager.LoadScene(GUISceneName, LoadSceneMode.Additive);
+    }
 
     public void ReiniciarPartidaCompleta()
     {
         PararRotinaMoedas();
+        processandoQueda = false;
 
         // Garante visibilidade e desbloqueio do mouse na Seleção
         Cursor.lockState = CursorLockMode.None;

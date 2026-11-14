@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoboData
   NomeRobo: Bronze
   PrefabRobo: {fileID: 0}
-  IconeBola: {fileID: 251567214, guid: 1ca5f74ae929e21488bcafcf9f94f0fa, type: 3}
-  TexturaBola: {fileID: 2800000, guid: 1ca5f74ae929e21488bcafcf9f94f0fa, type: 3}
+  IconeBola: {fileID: 0}
+  TexturaBola: {fileID: 0}
   EscalaTamanho: 0.8
   MaterialBase: {fileID: 2100000, guid: 414357d43f73adf409a474fab01fc5ce, type: 2}
   CorDuplicado: {r: 1, g: 0.45, b: 0.45, a: 1}
   VelocidadeInicial: 7
-  ForcaEmpurraoBase: 5
+  ForcaEmpurraoBase: 6
   RaioEmpurrao: 3
   TempoCooldownEmpurrao: 1

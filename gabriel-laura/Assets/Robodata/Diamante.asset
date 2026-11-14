@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoboData
   NomeRobo: Diamante
   PrefabRobo: {fileID: 0}
-  IconeBola: {fileID: 271559360, guid: 76d1a455e70d3604282e3a1d4a90aabb, type: 3}
-  TexturaBola: {fileID: 2800000, guid: 76d1a455e70d3604282e3a1d4a90aabb, type: 3}
+  IconeBola: {fileID: 0}
+  TexturaBola: {fileID: 0}
   EscalaTamanho: 1
   MaterialBase: {fileID: 2100000, guid: d6970b680e495fe41856b4a3eeaac53e, type: 2}
   CorDuplicado: {r: 1, g: 0.45, b: 0.45, a: 1}
-  VelocidadeInicial: 6
+  VelocidadeInicial: 5
   ForcaEmpurraoBase: 8
-  RaioEmpurrao: 2
-  TempoCooldownEmpurrao: 3
+  RaioEmpurrao: 5
+  TempoCooldownEmpurrao: 4
